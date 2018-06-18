@@ -1,0 +1,10 @@
+# Don’t include any of the folders
+**/*
+
+# Remove Makefile and readme from any ignore lists
+!.gitignore
+!Makefile
+!*.mk
+!ReadMe*
+!Readme*
+!readme*
