@@ -15,7 +15,7 @@ ifeq ($(LOCAL_SYSTEM),Darwin)
 else ifeq ($(LOCAL_SYSTEM),Linux)
 	FINDSTR_PERM := /u=x,g=x,o=x
 else
-	error "THISSYSTEM set to unknown value: $(THISSYSTEM)"
+	error "LOCAL_SYSTEM set to unknown value: $(LOCAL_SYSTEM)"
 endif
 
 # Do not install shared libs yet.  Too much pain with these shared libs.
