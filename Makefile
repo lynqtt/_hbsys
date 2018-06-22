@@ -17,7 +17,7 @@ ifeq ($(LOCAL_SYSTEM),Darwin)
 else ifeq ($(LOCAL_SYSTEM),Linux)
 	FINDSTR_PERM := /u=x,g=x,o=x
 	INSTALL_CMD := ln -s
-else ifeq ($(THISSYSTEM),CYGWIN_NT-10.0)
+else ifeq ($(LOCAL_SYSTEM),CYGWIN_NT-10.0)
     FINDSTR_PERM := /u=x,g=x,o=x
     INSTALL_CMD := cp -R
 else
