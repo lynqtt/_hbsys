@@ -5,9 +5,7 @@ HBPKG_PATH  := ../_hbpkg/$(INS_MACHINE)
 #ifeq ($(INS_PRODUCT), NULL)
 #	error "INS_PRODUCT set to NULL (no install specified)."
 #endif
-ifeq ($(INS_PKGNAME), NULL)
-	error "INS_PKGNAME set to NULL (no installable package specified)."
-endif
+
 
 LOCAL_SYSTEM := $(shell uname -s)
 ifeq ($(LOCAL_SYSTEM),Darwin)
@@ -21,10 +19,11 @@ else ifeq ($(LOCAL_SYSTEM),CYGWIN_NT-10.0)
     FINDSTR_PERM := /u=x,g=x,o=x
     INSTALL_CMD := cp -R
 else
-	error "LOCAL_SYSTEM set to unknown value: $(LOCAL_SYSTEM)"
+	$(error "LOCAL_SYSTEM set to unknown value: $(LOCAL_SYSTEM)")
 endif
 
 # Do not install shared libs yet.  Too much pain with these shared libs.
+ifneq ($(INS_PKGNAME), NULL)
 PKG_SEARCHDIR   := $(HBPKG_PATH)/$(INS_PKGNAME)/
 PKG_HEADERFILES	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 -type f -name "*.h")
 PKG_HEADERDIRS	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 ! -path $(PKG_SEARCHDIR) -type d)
@@ -35,6 +34,7 @@ SYS_HEADERFILES	:= $(subst $(PKG_SEARCHDIR),./$(INS_MACHINE)/include/,$(PKG_HEAD
 SYS_HEADERDIRS	:= $(subst $(PKG_SEARCHDIR),./$(INS_MACHINE)/include/,$(PKG_HEADERDIRS))
 SYS_LIBFILES 	:= $(subst $(PKG_SEARCHDIR),./$(INS_MACHINE)/lib/,$(PKG_LIBFILES))
 SYS_EXECFILES   := $(subst $(PKG_SEARCHDIR),./$(INS_MACHINE)/bin/,$(PKG_EXECFILES))
+endif
 
 ifeq ($(INSTALL_CMD),cp -R)
     LN_HEADERFILES	:= $(PKG_HEADERFILES)
@@ -47,17 +47,22 @@ else ifeq ($(INSTALL_CMD),ln -s)
     LN_LIBFILES 	:= $(subst ../_hbpkg,../../../_hbpkg,$(PKG_LIBFILES))
     LN_EXECFILES    := $(subst ../_hbpkg,../../../_hbpkg,$(PKG_EXECFILES))
 else
-    error "Unexpected Install Command"
+    $(error "Unexpected Install Command")
 endif
 
 
 
 all: sys_install
 
-
+# No package to make
+pkg:
+	
 
 
 sys_install:
+ifeq ($(INS_PKGNAME), NULL)
+	$(error "INS_PKGNAME set to NULL (no installable package specified).")
+endif
 	@mkdir -p $(INS_MACHINE)/bin
 	@mkdir -p $(INS_MACHINE)/include
 	@mkdir -p $(INS_MACHINE)/lib
@@ -79,8 +84,13 @@ ifneq ($(SYS_EXECFILES),)
 endif
 
 
+# May require sudo (depends on your setup of opt)
+opt_install:
+	@rm -rf /opt/hb
+	@mkdir -p /opt/hb
+	@cp -R -L $(INS_MACHINE)/ /opt/hb
 
 
 #Non-File Targets
-.PHONY: all sys_install clean cleaner
+.PHONY: all pkg sys_install clean cleaner
 
