@@ -86,9 +86,12 @@ endif
 
 # May require sudo (depends on your setup of opt)
 opt_install:
-	@rm -rf /opt/hb
-	@mkdir -p /opt/hb
-	@cp -R -L $(INS_MACHINE)/ /opt/hb
+	@mkdir -p /opt/bin
+	@mkdir -p /opt/lib
+	@mkdir -p /opt/include
+	@cp -R -L $(INS_MACHINE)/bin/* /opt/bin/
+	@cp -R -L $(INS_MACHINE)/lib/* /opt/lib/
+	@cp -R -L $(INS_MACHINE)/include/* /opt/include/
 
 
 #Non-File Targets
