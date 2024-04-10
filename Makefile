@@ -102,12 +102,12 @@ endif
 
 # May require sudo (depends on your setup of opt)
 opt_install:
-	@mkdir -p /opt/bin
-	@mkdir -p /opt/lib
-	@mkdir -p /opt/include
-	@cp -R -L $(INS_MACHINE)/bin/* /opt/bin/
-	@cp -R -L $(INS_MACHINE)/lib/* /opt/lib/
-	@cp -R -L $(INS_MACHINE)/include/* /opt/include/
+	@mkdir -p /opt/hbdist/bin
+	@mkdir -p /opt/hbdist/lib
+	@mkdir -p /opt/hbdist/include
+	@cp -R -L $(INS_MACHINE)/bin/* /opt/hbdist/bin/
+	@cp -R -L $(INS_MACHINE)/lib/* /opt/hbdist/lib/
+	@cp -R -L $(INS_MACHINE)/include/* /opt/hbdist/include/
 
 
 #Non-File Targets
