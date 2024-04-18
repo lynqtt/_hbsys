@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+INSTALL_ROOT ?= /opt/lynq
 
 INS_MACHINE ?= $(shell uname -srm | sed -e 's/ /-/g')
 INS_PKGNAME ?= NULL
@@ -102,12 +103,12 @@ endif
 
 # May require sudo (depends on your setup of opt)
 opt_install:
-	@mkdir -p /opt/hbdist/bin
-	@mkdir -p /opt/hbdist/lib
-	@mkdir -p /opt/hbdist/include
-	@cp -R -L $(INS_MACHINE)/bin/* /opt/hbdist/bin/
-	@cp -R -L $(INS_MACHINE)/lib/* /opt/hbdist/lib/
-	@cp -R -L $(INS_MACHINE)/include/* /opt/hbdist/include/
+	@mkdir -p $(INSTALL_ROOT)/bin
+	@mkdir -p $(INSTALL_ROOT)/lib
+	@mkdir -p $(INSTALL_ROOT)/include
+	@cp -R -L $(INS_MACHINE)/bin/* $(INSTALL_ROOT)/bin/
+	@cp -R -L $(INS_MACHINE)/lib/* $(INSTALL_ROOT)/lib/
+	@cp -R -L $(INS_MACHINE)/include/* $(INSTALL_ROOT)/include/
 
 
 #Non-File Targets
