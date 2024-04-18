@@ -2,22 +2,19 @@
 
 HBsys (stored in directory named "_hbsys" for the purpose of ordering within a root directory) provides a **makefile** that works together with child makefiles from compliant software components.  
 
-The point of HBsys is to provide a build system for a group of embedded POSIX software, typically deployed together as middleware, without resorting to complicated build systems like cMake or BitBake.  HBsys is not as versatile or generic as these, but it relies merely on good ol' makefiles.
+The point of HBsys is to provide a build system for a group of embedded software, typically deployed together as middleware, without resorting to build systems like cMake or BitBake.  HBsys is not as versatile or generic as these, but it can be deployed to virutually any system that has supports the C programming language because it uses only Makefiles.
 
 Incomplete list of software that builds with HBsys:
 
 * [argtable](https://github.com/jpnorair/argtable)
 * [bintex](https://github.com/jpnorair/bintex)
-* [birdmon](https://github.com/jpnorair/birdmon)
 * [clithread](https://github.com/jpnorair/clithread)
 * [cmdtab](https://github.com/jpnorair/cmdtab)
-* [libotfs](https://github.com/jpnorair/libotfs)
-* [libjudy](https://github.com/jpnorair/libjudy)
-* [otter](https://github.com/jpnorair/otter)
+* [hbutils](https://github.com/jpnorair/hbutils)
+* [otter](https://github.com/lynqtt/otter2)
 * [ottercat](https://github.com/jpnorair/ottercat)
 * [otvar](https://github.com/jpnorair/otvar)
-* [OTEAX](https://github.com/jpnorair/OTEAX)
-* [wfedd](https://github.com/jpnorair/wfedd)
+* [sciclient](https://github.com/lynqtt/sciclient)
 
 ## Customization of Build & Management
 
