@@ -110,7 +110,9 @@ opt_install:
 	@cp -R -L $(INS_MACHINE)/lib/* $(INSTALL_ROOT)/lib/
 	@cp -R -L $(INS_MACHINE)/include/* $(INSTALL_ROOT)/include/
 
+cleaner: clean
+	@$(RM) -rf $(INS_MACHINE)
 
+.PHONY: all pkg sys_install clean
 #Non-File Targets
-.PHONY: all pkg sys_install clean cleaner
 
