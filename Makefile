@@ -1,17 +1,12 @@
-# Copyright 2018, JP Norair
+# Copyright © 2025 Lynq Technologies, Inc.
 #
-# Licensed under the OpenTag License, Version 1.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# This software is licensed for use pursuant to the terms of the license
+# agreement that was executed in order to obtain access to the SDK for
+# development purposes. The software can only be used in compliance with the
+# terms and conditions of the specific agreement.
 #
-# http://www.indigresso.com/wiki/doku.php?id=opentag:license_1_0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# @file Makefile
+
 
 INSTALL_ROOT ?= /opt/lynq
 
@@ -19,15 +14,9 @@ INS_MACHINE ?= $(shell uname -srm | sed -e 's/ /-/g')
 INS_PKGNAME ?= NULL
 HBPKG_PATH  := ../_hbpkg/$(INS_MACHINE)
 
-#ifeq ($(INS_PRODUCT), NULL)
-#	error "INS_PRODUCT set to NULL (no install specified)."
-#endif
-
-
 LOCAL_SYSTEM := $(shell uname -s)
 ifeq ($(LOCAL_SYSTEM),Darwin)
 	FINDSTR_PERM := +111
-#	INSTALL_CMD := cp -R
 	INSTALL_CMD := ln -s
 else ifeq ($(LOCAL_SYSTEM),Linux)
 	FINDSTR_PERM := /u=x,g=x,o=x
@@ -39,12 +28,11 @@ else
 	$(error "LOCAL_SYSTEM set to unknown value: $(LOCAL_SYSTEM)")
 endif
 
-# Do not install shared libs yet.  Too much pain with these shared libs.
+# Do not install shared libs yet.
 ifneq ($(INS_PKGNAME), NULL)
 PKG_SEARCHDIR   := $(HBPKG_PATH)/$(INS_PKGNAME)/
 PKG_HEADERFILES	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 -type f -name "*.h")
 PKG_HEADERDIRS	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 ! -path $(PKG_SEARCHDIR) -type d)
-#PKG_LIBFILES 	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 -type f -name "*.a" -or -name "*.dylib*" -or -name "*.so*")
 PKG_LIBFILES 	:= $(shell find $(PKG_SEARCHDIR) -maxdepth 1 -type f -name "*.a")
 PKG_EXECFILES   := $(shell find $(PKG_SEARCHDIR) -maxdepth 1 -type f -perm $(FINDSTR_PERM) ! -name "*.h" ! -name "*.a" ! -name "*.dylib*" ! -name "*.so*")
 SYS_HEADERFILES	:= $(subst $(PKG_SEARCHDIR),./$(INS_MACHINE)/include/,$(PKG_HEADERFILES))
